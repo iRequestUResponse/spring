@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	
+  <select id="getUserList" resultType="user">
+    select * from USERS
+  </select>
+	
+  <select id="getUserListOnlyHalf" resultType="user">
+    select * from USERS where rownum &lt;= 50
+  </select>
+  
+  <select id="getUser" parameterType="String" resultType="user">
+  	select 	*
+  	from	USERS
+  	where 	userId = #{userId}
+  </select>
+  
+  <select id="getUserPagingList" resultType="user" parameterType="page">
+  	select *
+	from
+	    (select rownum rn, a.*
+	    from
+	        (select  *
+	        from    USERS
+	        order by userid) a)
+	where rn between #{size} * (#{page} - 1) + 1 and #{size} * #{page}
+  </select>
+  
+  <!-- 사용자 전체 건수 조회 -->
+  <select id="getUserTotalCnt" resultType="Integer">
+  	select count(1) from USERS
+  </select>
+  
+  <!-- 사용자 등록 -->
+  <insert id="insertUser" parameterType="user">
+  	insert into USERS (userid, usernm, alias, reg_dt, addr1, addr2, zipcode, pass, filename, realfilename)
+  	values (#{userId}, #{userNm}, #{alias}, #{reg_dt}, #{addr1}, #{addr2}, #{zipcode}, #{pass}, #{filename}, #{realfilename})
+  </insert>
+  
+  <!-- 사용자 삭제 -->
+  <delete id="deleteUser" parameterType="String">
+  	delete USERS where userid = #{userid}
+  </delete>
+  
+  <!-- 사용자 수정 -->
+  <update id="updateUser" parameterType="user">
+  	update 	USERS
+  	set		usernm = #{userNm},
+  			pass = #{pass},
+  			alias = #{alias},
+  			reg_dt = #{reg_dt},
+  			addr1 = #{addr1},
+  			addr2 = #{addr2},
+  			zipcode = #{zipcode},
+  			filename = #{filename, jdbcType=VARCHAR},
+  			realfilename = #{realfilename, jdbcType=VARCHAR}
+  	where	userid = #{userId}
+  </update>
+</mapper>
