@@ -10,20 +10,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.common.model.Page;
+import kr.or.ddit.config.test.RootTestConfig;
 import kr.or.ddit.user.model.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:kr/or/ddit/config/spring/context-root.xml",
-		"classpath:kr/or/ddit/config/spring/context-datasource.xml",
-		"classpath:kr/or/ddit/config/spring/context-transaction.xml"
-		})
-public class UserServiceTest {
+public class UserServiceTest extends RootTestConfig {
 
 	@Resource(name="userService")
 	private IUserService userService;
@@ -70,7 +62,7 @@ public class UserServiceTest {
 
 		/***Then***/
 		assertEquals(10, userList.size());
-		assertEquals("xuserid12", ((User) userList.get(0)).getUserId());
+		assertEquals("xuserid13", ((User) userList.get(0)).getUserId());
 	}
 
 	@Test
@@ -81,7 +73,7 @@ public class UserServiceTest {
 		int cnt = userService.getUserTotalCnt();
 
 		/***Then***/
-		assertTrue(cnt > 105);
+		assertTrue(cnt == 105);
 	}
 
 	@Test
@@ -103,7 +95,7 @@ public class UserServiceTest {
 
 		/***When***/
 		int cnt = userService.getUserTotalCnt();
-		int success = userService.deleteUser("delete");
+		int success = userService.deleteUser("brown");
 
 		/***Then***/
 		assertEquals(1, success);
@@ -115,9 +107,9 @@ public class UserServiceTest {
 		/***Given***/
 
 		/***When***/
-		User user = new User("delete", "hello", "", new Date(), "", "", "", "", "", "");
+		User user = new User("brown", "hello", "", new Date(), "", "", "", "", "", "");
 		int cnt = userService.updateUser(user);
-		User updatedUser = userService.getUser("delete");
+		User updatedUser = userService.getUser("brown");
 
 		/***Then***/
 		assertEquals(1, cnt);

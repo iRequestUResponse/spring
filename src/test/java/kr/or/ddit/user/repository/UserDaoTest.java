@@ -10,23 +10,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.common.model.Page;
+import kr.or.ddit.config.test.RootTestConfig;
 import kr.or.ddit.user.dao.IUserDao;
 import kr.or.ddit.user.model.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:kr/or/ddit/config/spring/context-root.xml",
-		"classpath:kr/or/ddit/config/spring/context-datasource.xml",
-		"classpath:kr/or/ddit/config/spring/context-transaction.xml"
-		})
-public class UserDaoTest {
+public class UserDaoTest extends RootTestConfig {
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
 	
 	// userDao를 테스트하기 위해 필요한 것
@@ -34,7 +26,7 @@ public class UserDaoTest {
 	
 	@Resource(name="userDao")
 	private IUserDao userDao;
-	
+
 	@Test
 	public void getUserListTest() {
 		/***Given***/
@@ -43,7 +35,7 @@ public class UserDaoTest {
 		List<User> userList = userDao.getUserList();
 
 		/***Then***/
-		assertTrue(userList.size() > 105);
+		assertTrue(userList.size() == 105);
 	}
 
 	@Test
@@ -78,7 +70,7 @@ public class UserDaoTest {
 
 		/***Then***/
 		assertEquals(10, userList.size());
-		assertEquals("xuserid12", ((User) userList.get(0)).getUserId());
+		assertEquals("xuserid13", ((User) userList.get(0)).getUserId());
 	}
 
 	@Test
@@ -89,7 +81,7 @@ public class UserDaoTest {
 		int cnt = userDao.getUserTotalCnt();
 
 		/***Then***/
-		assertTrue(cnt > 105);
+		assertTrue(cnt == 105);
 	}
 
 	@Test
@@ -111,7 +103,7 @@ public class UserDaoTest {
 
 		/***When***/
 		int cnt = userDao.getUserTotalCnt();
-		int success = userDao.deleteUser("delete");
+		int success = userDao.deleteUser("brown");
 
 		/***Then***/
 		assertEquals(1, success);
@@ -123,10 +115,10 @@ public class UserDaoTest {
 		/***Given***/
 
 		/***When***/
-		User user = new User("delete", "hello", "", new Date(), "", "", "", "", "", "");
+		User user = new User("brown", "hello", "", new Date(), "", "", "", "", "", "");
 		logger.debug("user : {}", user);
 		int cnt = userDao.updateUser(user);
-		User updatedUser = userDao.getUser("delete");
+		User updatedUser = userDao.getUser("brown");
 
 		/***Then***/
 		assertEquals(1, cnt);
