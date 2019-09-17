@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -58,7 +59,8 @@ public class UserServiceTest extends RootTestConfig {
 		/***Given***/
 
 		/***When***/
-		List userList = userService.getUserPagingList(new Page(2, 10));
+		Map map = (Map) userService.getUserPagingList(new Page(2, 10));
+		List userList = (List) map.get("userList");
 
 		/***Then***/
 		assertEquals(10, userList.size());

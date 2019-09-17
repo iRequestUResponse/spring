@@ -1,6 +1,7 @@
 package kr.or.ddit.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.user.model.User;
@@ -45,7 +46,7 @@ public interface IUserService {
 	* @return
 	* Method 설명 : 사용자 페이징 리스트 조회
 	*/
-	List<User> getUserPagingList(Page page);
+	Map<String, Object> getUserPagingList(Page page);
 	
 	/**
 	* Method : getUserTotalCnt

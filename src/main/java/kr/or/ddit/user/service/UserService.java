@@ -1,6 +1,8 @@
 package kr.or.ddit.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -84,8 +86,12 @@ public class UserService implements IUserService {
 	* Method 설명 : 사용자 페이징 리스트 조회
 	*/
 	@Override
-	public List<User> getUserPagingList(Page page) {
-		return userDao.getUserPagingList(page);
+	public Map<String, Object> getUserPagingList(Page page) {
+		Map<String, Object> map = new HashMap();
+		List userList = userDao.getUserPagingList(page);
+		map.put("userList", userList);
+		map.put("paginationSize", (userDao.getUserTotalCnt() + page.getSize() - 1) / page.getSize());
+		return map;
 	}
 
 	/**
