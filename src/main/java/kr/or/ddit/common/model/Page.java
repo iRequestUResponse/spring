@@ -11,7 +11,7 @@ public class Page {
 	}
 
 	public int getPage() {
-		return page;
+		return page == 0 ? 1 : page;
 	}
 
 	public void setPage(int page) {
@@ -19,7 +19,7 @@ public class Page {
 	}
 
 	public int getSize() {
-		return size;
+		return size == 0 ? 10 : size;
 	}
 
 	public void setSize(int size) {
