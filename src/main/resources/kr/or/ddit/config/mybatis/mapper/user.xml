@@ -37,7 +37,7 @@
   <!-- 사용자 등록 -->
   <insert id="insertUser" parameterType="user">
   	insert into USERS (userid, usernm, alias, reg_dt, addr1, addr2, zipcode, pass, filename, realfilename)
-  	values (#{userId}, #{userNm}, #{alias}, #{reg_dt}, #{addr1}, #{addr2}, #{zipcode}, #{pass}, #{filename}, #{realfilename})
+  	values (#{userId}, #{userNm}, #{alias}, #{reg_dt}, #{addr1}, #{addr2}, #{zipcode}, #{pass}, #{filename, jdbcType=VARCHAR}, #{realfilename, jdbcType=VARCHAR})
   </insert>
   
   <!-- 사용자 삭제 -->

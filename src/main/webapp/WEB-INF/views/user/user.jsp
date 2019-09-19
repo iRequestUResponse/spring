@@ -23,7 +23,7 @@
 $(function() {
 	$('[type=submit]').click(function(event) {
 		event.preventDefault();
-		location.href = '${ cp }/userModify?userId=${ user.userId }';
+		location.href = '${ cp }/user/modify/${ user.userId }';
 	});
 })
 </script>
@@ -48,7 +48,7 @@ $(function() {
 						<label for="picture" class="col-sm-2 control-label">사용자 사진</label>
 						<div class="col-sm-10">
 <%-- 							<img id="picture" src="${ cp }${ user.realfilename2 }"> --%>
-							<img src="${ cp }/userPicture?userId=${ user.userId }">
+							<img src="${ cp }/user/picture/${ user.userId }">
 						</div>
 					</div>
 

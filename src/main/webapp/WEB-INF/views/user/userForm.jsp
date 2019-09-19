@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,17 +23,17 @@
 <script>
 $(function() {
 	// 사용자 등록 버튼 클릭 이벤트 핸들러
-	$('#regBtn').on('click', function() {
-		var userIdValidationChk = /^[a-zA-Z](\w|\.(?!\.)){4,19}$/.test($('#userId').val());
-		if (!userIdValidationChk) {
-			alert('사용자 아이디가 유효하지 않습니다');
-			$('#userId').val('').focus();
-			return false;
-		}
+// 	$('#regBtn').on('click', function() {
+// 		var userIdValidationChk = /^[a-zA-Z](\w|\.(?!\.)){4,19}$/.test($('#userId').val());
+// 		if (!userIdValidationChk) {
+// 			alert('사용자 아이디가 유효하지 않습니다');
+// 			$('#userId').val('').focus();
+// 			return false;
+// 		}
 		
-		// submit
-// 		$('#frm').submit();
-	});
+// 		// submit
+// // 		$('#frm').submit();
+// 	});
 	
 	// 우편번호 검색 버튼 클릭 이벤트 핸들러
 	$("#zipcodeBtn").on('click', function() {
@@ -72,7 +72,7 @@ function setTestData() {
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<form id="frm" class="form-horizontal" role="form"
-						action="${ cp }/userForm" method="post"
+						action="${ cp }/user/userForm" method="post"
 						enctype="multipart/form-data"
 				>
 
@@ -90,7 +90,7 @@ function setTestData() {
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="userId" name="userId"
 								placeholder="사용자 아이디" value="${ param.userId }">
-							${ userIdMsg }
+							<font color="red"><form:errors path="user.userId" /></font>
 						</div>
 					</div>
 
