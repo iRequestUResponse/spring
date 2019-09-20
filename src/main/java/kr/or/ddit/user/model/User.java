@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 import encrypt.KISA_SHA256;
 
 public class User {
@@ -17,6 +20,7 @@ public class User {
 	private String alias; // 별명
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape=Shape.STRING, pattern="yyyy-MM-dd")
 	private Date reg_dt; // 등록일
 	private String addr1; // 주소1
 	private String addr2; // 주소2

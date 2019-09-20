@@ -2,6 +2,7 @@ package kr.or.ddit.user.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.imageio.stream.FileImageInputStream;
@@ -27,7 +28,6 @@ import kr.or.ddit.user.model.UserValidator;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.FileUtil;
 import kr.or.ddit.util.model.FileInfo;
-import oracle.jdbc.proxy.annotation.GetProxy;
 
 @RequestMapping("user/")
 @Controller
@@ -232,5 +232,36 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "user/modify/";
 		}
+	}
+	
+	@RequestMapping(path="userPagingListAjaxView")
+	public String userPagingListAjasView() {
+		return "user/userPagingListAjaxView";
+	}
+	
+	@RequestMapping(path= "userPagingListAjax", method=RequestMethod.GET)
+	public String userPagingListAjax(Model model, Page page) {
+		model.addAttribute("pageVo", page);
+		model.addAllAttributes(userService.getUserPagingList(page));
+		
+		return "jsonView";
+	}
+	
+	/**
+	* Method : userPagingListHtmlAjax
+	* 작성자 : PC-17
+	* 변경이력 :
+	* @param model
+	* @param page
+	* @return
+	* Method 설명 : 사용자 페이징 리스트의 결과를 html로 생성한다 (jsp)
+	*/
+	@RequestMapping("userPagingListHtmlAjax")
+	public String userPagingListHtmlAjax(Model model, Page page) {
+		Map resultMap = userService.getUserPagingList(page);
+		model.addAttribute("pageVo", page);
+		model.addAllAttributes(resultMap);
+		
+		return "user/userPagingListHtmlAjax";
 	}
 }
