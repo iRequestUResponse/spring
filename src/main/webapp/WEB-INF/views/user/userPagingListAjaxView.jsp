@@ -63,10 +63,7 @@ $(document).ready(function(){
 function getUserHtmlList(page, size) {
 	$.ajax({
 		url: "${cp}/user/userPagingListHtmlAjax",
-		data: {
-			page: page,
-			size: size
-		},
+		data: 'page=' + page + '&size=' + size,
 		success: function(data) {
 			console.log(data);
 			var html = data.split('####!!!!####');
@@ -79,13 +76,29 @@ function getUserHtmlList(page, size) {
 }
 
 // ajax call을 통해 페이징된 사용자 데이터를 가져온다
+function getUserListRequestBody(page, size) {
+	var param = {};
+	param.page = page;
+	param.size = size;
+	
+	$.ajax({
+		url: "${cp}/user/userPagingListAjaxRequestBody",
+		contentType: 'application/json',
+		dataType: 'json',
+		method: 'POST',
+		data: JSON.stringify(param),
+		success: function(data) {
+			createUserListTBody(data.userList); // userList html 생성
+			createPagination(data.pageVo, data.paginationSize); // 페이지네이션 html 생성
+		}
+	});
+}
+
+// ajax call을 통해 페이징된 사용자 데이터를 가져온다
 function getUserList(page, size) {
 	$.ajax({
 		url: "${cp}/user/userPagingListAjax",
-		data: {
-			page: page,
-			size: size
-		},
+		data: 'page=' + page + '&size=' + size,
 		success: function(data) {
 			createUserListTBody(data.userList); // userList html 생성
 			createPagination(data.page, data.paginationSize); // 페이지네이션 html 생성
