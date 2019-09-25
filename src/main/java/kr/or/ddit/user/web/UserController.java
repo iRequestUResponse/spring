@@ -101,7 +101,19 @@ public class UserController {
 		model.addAttribute("pageVo", page);
 		model.addAllAttributes(userService.getUserPagingList(page));
 		
-		return "user/userPagingList";
+//		return "user/userPagingList"; // internalResourceViewResolver를 통한 응담
+		return "tiles.userPagingList";
+		
+		/*
+		 * viewResolver order에 따라
+		 * 1. tilesViewResolver가 tiles definition 파일중에
+		 *   viewname과 일치하는 definition 이름을 검색
+		 *   1-1. 검색이 될 경우 해당 definition을 이용하여 응답 생성
+		 *   1-2. 검색이 안 될 경우 다음 우선수누이를 갖는 viewResolver가 처리
+		 *   
+		 * 2. beanNameViewResolver
+		 * 3. interResourceViewResolver
+		 */
 	}
 	
 	/**
@@ -117,7 +129,7 @@ public class UserController {
 	public String userDetail(Model model, String userId) {
 		model.addAttribute("user", userService.getUser(userId));
 		
-		return "user/user";
+		return "tiles.userDetail";
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.or.ddit.user.dao.IUserDao;
 import kr.or.ddit.user.service.IUserService;
@@ -19,6 +20,7 @@ import kr.or.ddit.user.service.IUserService;
 		"classpath:kr/or/ddit/spring/ioc/component-scan-test.xml", // test resources
 		"classpath:kr/or/ddit/config/spring/context-datasource.xml" // test resources
 })
+@WebAppConfiguration
 public class SpringComponentScanTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SpringComponentScanTest.class);
